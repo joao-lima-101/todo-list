@@ -1,0 +1,29 @@
+# Pastas de build locais
+target/
+build/
+out/
+
+# Arquivos de log locais
+*.log
+
+# Ferramentas e wrappers locais
+.mvn/
+mvnw
+mvnw.cmd
+.gradle/
+gradlew
+gradlew.bat
+
+# Configurações de IDEs (Eclipse, IntelliJ, VS Code)
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/
+
+# Arquivos do Git e Sistema Operacional
+.git
+.gitignore
+.DS_Store
+Thumbs.db

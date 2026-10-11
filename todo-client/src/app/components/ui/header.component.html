@@ -1,0 +1,47 @@
+<header class="w-full border-b border-gray-200 bg-white">
+  <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3">
+    <div class="flex items-center gap-3">
+      <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
+        <mat-icon class="text-blue-600"> check_circle </mat-icon>
+      </div>
+
+      <div>
+        <h1 class="text-lg font-bold text-gray-800">Todo List</h1>
+
+        <p class="text-xs text-gray-400">Organize suas tarefas</p>
+      </div>
+    </div>
+
+    <div>
+      <button
+        type="button"
+        [matMenuTriggerFor]="menu"
+        class="flex items-center gap-3 rounded-lg px-3 py-2 transition hover:bg-gray-100"
+      >
+        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100">
+          <mat-icon class="text-gray-600"> person </mat-icon>
+        </div>
+
+        <div class="hidden text-left sm:block">
+          <span class="block text-sm font-medium text-gray-700"> Usuário </span>
+
+          <span class="block text-xs text-gray-400"> Minha conta </span>
+        </div>
+
+        <mat-icon class="hidden text-gray-400 sm:block"> expand_more </mat-icon>
+      </button>
+
+      <mat-menu #menu="matMenu" xPosition="before" yPosition="below" class="dropdown-menu">
+        <button mat-menu-item (click)="openDialog()">
+          <mat-icon>lock</mat-icon>
+          <span>Trocar senha</span>
+        </button>
+
+        <button mat-menu-item (click)="logout()" class="danger">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Sair</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</header>

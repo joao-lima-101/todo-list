@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>
+  {{ confirmProps.title || 'Confirmar ação' }}
+</h2>
+<mat-dialog-content>
+  <div class="flex">
+    {{ confirmProps.label || 'Essa ação não pode ser desfeita' }}
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="flex flex-row gap-5">
+  <button
+    mat-dialog-close
+    class="button-secondary transition text-white bg-red-500 hover:bg-red-700"
+  >
+    Cancelar
+  </button>
+  <button
+    (click)="handleClick()"
+    class="button-secondary transition text-white bg-green-500 hover:bg-green-700"
+  >
+    Confirmar
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,13 @@
+todo-client/node_modules
+
+todo-client/.vscode
+todo-server/.idea
+
+todo-client/.env
+todo-client/.env.local
+
+todo-server/.env
+todo-server/.env.local
+
+.env
+.env.local

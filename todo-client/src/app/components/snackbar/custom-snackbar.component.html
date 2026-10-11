@@ -1,0 +1,36 @@
+<div
+  class="flex w-full items-start gap-3 rounded-xl border px-4 py-3 shadow-lg transition-transform hover:-translate-y-0.5"
+  [class]="typeThemes[data.type]"
+>
+  <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-black/10">
+    <mat-icon class="text-[20px]">
+      {{ data.type === 'success' ? 'check_circle' : 'error' }}
+    </mat-icon>
+  </div>
+
+  <div class="min-w-0 flex-1">
+    @if (data.title) {
+      <div class="mb-2 border-b border-current/15 pb-2">
+        <span class="block text-sm font-semibold leading-5">
+          {{ data.title }}
+        </span>
+      </div>
+    }
+
+    <span matSnackBarLabel class="block text-sm leading-5 opacity-90">
+      {{ data.message }}
+    </span>
+  </div>
+
+  <div matSnackBarActions class="shrink-0">
+    <button
+      matSnackBarAction
+      type="button"
+      (click)="snackBarRef.dismiss()"
+      class="flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-black/10 active:scale-95"
+      aria-label="Fechar notificação"
+    >
+      <mat-icon class="text-[20px]">close</mat-icon>
+    </button>
+  </div>
+</div>

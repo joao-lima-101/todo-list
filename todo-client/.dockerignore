@@ -1,0 +1,17 @@
+node_modules
+npm-debug.log
+
+.env
+.env.local
+*.pem
+*.key
+
+dist
+build
+.production
+
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store

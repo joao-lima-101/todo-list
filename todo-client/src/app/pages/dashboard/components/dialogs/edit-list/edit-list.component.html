@@ -1,0 +1,45 @@
+<form [formRoot]="listForm">
+  <h2 mat-dialog-title>Editar lista</h2>
+  <mat-dialog-content>
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-2">
+        <input
+          type="text"
+          id="name"
+          class="input-secondary"
+          placeholder="Digite um nome"
+          [formField]="listForm.name"
+        />
+
+        @if (hasNameError()) {
+          <div class="text-xs text-red-500">
+            {{ this.listForm.name().errors()[0].message }}
+          </div>
+        }
+      </div>
+      <div>
+        <textarea
+          id="description"
+          class="input-secondary"
+          rows="5"
+          placeholder="Descrição..."
+          [formField]="listForm.description"
+        ></textarea>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="flex flex-row gap-5">
+    <button
+      mat-dialog-close
+      class="button-secondary transition text-white bg-red-500 hover:bg-red-700"
+    >
+      Cancelar
+    </button>
+    <button
+      type="submit"
+      class="button-secondary transition text-white bg-green-500 hover:bg-green-700"
+    >
+      Criar
+    </button>
+  </mat-dialog-actions>
+</form>

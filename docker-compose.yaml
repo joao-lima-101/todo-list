@@ -1,0 +1,44 @@
+services:
+  # database (mysql)
+  database:
+    image: mysql:latest
+    container_name: server-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=todo_list
+    volumes:
+      - mysql_data:/var/lib/mysql
+  # backend (spring boot)
+  backend:
+    image: maven:3.9-eclipse-temurin-21-alpine
+    user: "1000:1000"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./todo-server:/app
+      - ~/.m2:/tmp/.m2
+    working_dir: /app
+    command: mvn spring-boot:run
+    environment:
+      - HOME=/tmp
+      - SPRING_DATASOURCE_URL=${MYSQL_URL}
+      - SPRING_DATASOURCE_USERNAME=${MYSQL_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}
+      - JWT_SECRET=${JWT_LOCAL}
+    depends_on:
+      - database
+  # frontend (Angular)
+  frontend:
+    build: ./todo-client
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./todo-client:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+    mysql_data:

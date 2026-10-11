@@ -1,0 +1,66 @@
+<form [formRoot]="taskForm">
+  <h2 mat-dialog-title>Editar Tarefa</h2>
+  <mat-dialog-content>
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-2">
+        <label for="name">Nome</label>
+        <input
+          type="text"
+          id="name"
+          [class]="hasNameError() ? 'input-error-secondary' : 'input-secondary'"
+          placeholder="Digite um nome para a tarefa"
+          [formField]="taskForm.name"
+        />
+
+        @if (hasNameError()) {
+          <div class="text-xs text-red-500">
+            {{ taskForm.name().errors()[0].message }}
+          </div>
+        }
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="description">Nome</label>
+        <textarea
+          id="description"
+          class="input-secondary"
+          rows="5"
+          placeholder="Descrição da tarefa"
+          [formField]="taskForm.description"
+        ></textarea>
+      </div>
+      <div class="flex flex-row gap-4 items-center">
+        <mat-form-field appearance="outline">
+          <mat-label>Prioridade</mat-label>
+          <mat-select [formField]="taskForm.priority" panelClass="bg-white!">
+            <mat-option value="BAIXO">Baixo</mat-option>
+            <mat-option value="MEDIO">Medio</mat-option>
+            <mat-option value="ALTO">Alto</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="due-date">Prazo</label>
+        <input
+          id="due-date"
+          type="date"
+          [formField]="taskForm.dueDate"
+          class="p-3 border border-gray-300 rounded-lg shadow"
+        />
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="flex flex-row gap-5">
+    <button
+      mat-dialog-close
+      class="button-secondary transition text-white bg-red-500 hover:bg-red-700"
+    >
+      Cancelar
+    </button>
+    <button
+      type="submit"
+      class="button-secondary transition text-white bg-green-500 hover:bg-green-700"
+    >
+      Criar
+    </button>
+  </mat-dialog-actions>
+</form>

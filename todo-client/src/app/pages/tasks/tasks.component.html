@@ -1,0 +1,181 @@
+<div class="min-h-screen w-full bg-gray-100">
+  <div class="mx-auto w-full max-w-6xl px-4">
+    <header-component></header-component>
+
+    <main class="py-8">
+      <div class="mb-6">
+        <button
+          type="button"
+          class="mb-4 flex items-center justify-center gap-1 text-sm text-gray-500 transition hover:text-gray-800"
+          (click)="backToHome()"
+        >
+          <mat-icon fontIcon="arrow_back"></mat-icon>
+          Home
+        </button>
+
+        <div class="flex items-center justify-between gap-4">
+          <div class="min-w-0">
+            <h1 class="truncate text-2xl font-bold text-gray-800">
+              {{ listResponse.value()?.name }}
+            </h1>
+
+            <p class="mt-1 text-sm text-gray-500">{{ tasksResponse.value()?.length }} tarefas</p>
+          </div>
+
+          <button
+            type="button"
+            class="flex shrink-0 items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-blue-700 active:scale-95"
+            (click)="openCreateDialog()"
+          >
+            <mat-icon fontIcon="add"></mat-icon>
+            Nova tarefa
+          </button>
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <div class="relative">
+          <mat-icon
+            class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            fontIcon="search"
+          ></mat-icon>
+
+          <input
+            type="text"
+            placeholder="Pesquisar tarefas..."
+            [value]="searchTerm()"
+            (input)="searchTerm.set($any($event.target).value)"
+            class="w-full rounded-lg border border-gray-300 bg-white py-3 pl-11 pr-4 text-sm text-gray-800 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+          />
+        </div>
+      </div>
+
+      @if (filteredTasks().length === 0) {
+        <div
+          class="flex min-h-80 flex-col items-center justify-center rounded-xl border border-dashed border-gray-300 bg-white p-8 text-center"
+        >
+          <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
+            <mat-icon
+              class="text-gray-400"
+              style="width: 40px; height: 40px; font-size: 40px"
+              fontIcon="checklist"
+            ></mat-icon>
+          </div>
+
+          @if (searchTerm()) {
+            <h2 class="text-lg font-semibold text-gray-700">Nenhuma tarefa encontrada</h2>
+
+            <p class="mt-1 text-sm text-gray-500">Tente pesquisar por outro nome.</p>
+          } @else {
+            <h2 class="text-lg font-semibold text-gray-700">Nenhuma tarefa cadastrada</h2>
+
+            <p class="mt-1 text-sm text-gray-500">Crie sua primeira tarefa para começar.</p>
+
+            <button
+              type="button"
+              class="mt-5 flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700 active:scale-95"
+              (click)="openCreateDialog()"
+            >
+              <mat-icon fontIcon="add"></mat-icon>
+              Criar primeira tarefa
+            </button>
+          }
+        </div>
+      } @else {
+        <div class="flex flex-col gap-3">
+          @for (item of filteredTasks(); track item.id) {
+            <div
+              class="group flex items-center gap-4 rounded-xl border border-gray-200 bg-white px-4 py-4 shadow-sm transition hover:border-gray-300 hover:shadow-md"
+            >
+              <button
+                type="button"
+                class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 transition"
+                [class.border-green-500]="item.done"
+                [class.bg-green-500]="item.done"
+                [class.border-gray-300]="!item.done"
+                [attr.aria-label]="
+                  item.done ? 'Marcar tarefa como pendente' : 'Marcar tarefa como concluída'
+                "
+                (click)="toggleDone(item.id, item.done)"
+              >
+                @if (item.done) {
+                  <mat-icon
+                    class="text-white"
+                    style="font-size: 17px; width: 17px; height: 17px"
+                    fontIcon="check"
+                  ></mat-icon>
+                }
+              </button>
+
+              <div class="min-w-0 flex-1">
+                <p
+                  class="truncate text-sm font-medium"
+                  [class.text-gray-400]="item.done"
+                  [class.text-gray-800]="!item.done"
+                  [class.line-through]="item.done"
+                >
+                  {{ item.name }}
+                </p>
+
+                @if (item.description) {
+                  <p class="mt-1 truncate text-xs text-gray-400">
+                    {{ item.description }}
+                  </p>
+                }
+
+                <div class="mt-2 flex flex-wrap items-center gap-3">
+                  <span
+                    class="rounded-full px-2 py-1 text-[11px] font-medium"
+                    [class.bg-red-100]="item.priority === 'ALTO'"
+                    [class.text-red-700]="item.priority === 'ALTO'"
+                    [class.bg-yellow-100]="item.priority === 'MEDIO'"
+                    [class.text-yellow-700]="item.priority === 'MEDIO'"
+                    [class.bg-green-100]="item.priority === 'BAIXO'"
+                    [class.text-green-700]="item.priority === 'BAIXO'"
+                  >
+                    {{ item.priority }}
+                  </span>
+
+                  <span class="flex items-center gap-1 text-xs text-gray-400">
+                    @if (item.dueDate) {
+                      <mat-icon
+                        fontIcon="event"
+                        style="width: 15px; height: 15px; font-size: 15px"
+                      ></mat-icon>
+
+                      {{ item.dueDate | date: 'dd/MM/yyyy' }}
+                    } @else {
+                      Sem prazo definido
+                    }
+                  </span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-gray-400 opacity-100 transition hover:bg-gray-100 hover:text-gray-600"
+                [matMenuTriggerFor]="itemMenu"
+                (click)="$event.stopPropagation()"
+                aria-label="Ações da tarefa"
+              >
+                <mat-icon fontIcon="more_vert"></mat-icon>
+              </button>
+
+              <mat-menu #itemMenu="matMenu" class="dropdown-menu">
+                <button mat-menu-item (click)="openEditDialog(item)">
+                  <mat-icon fontIcon="edit"></mat-icon>
+                  <span>Editar</span>
+                </button>
+
+                <button mat-menu-item (click)="openConfirmDialog(item.id)" class="danger">
+                  <mat-icon fontIcon="delete"></mat-icon>
+                  <span>Excluir</span>
+                </button>
+              </mat-menu>
+            </div>
+          }
+        </div>
+      }
+    </main>
+  </div>
+</div>
