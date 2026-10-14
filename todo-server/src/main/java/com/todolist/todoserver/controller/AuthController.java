@@ -3,6 +3,8 @@ package com.todolist.todoserver.controller;
 import com.todolist.todoserver.dto.ApiResponseDTO;
 import com.todolist.todoserver.dto.LoginRequestDTO;
 import com.todolist.todoserver.dto.RegisterRequestDTO;
+import com.todolist.todoserver.dto.UserResponseDTO;
+import com.todolist.todoserver.entity.User;
 import com.todolist.todoserver.mapper.UserMapper;
 import com.todolist.todoserver.security.TokenService;
 import com.todolist.todoserver.service.AuthService;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -42,6 +45,11 @@ public class AuthController {
         boolean isAuthenticated = (token != null) && (tokenService.validateToken(token) != null);
 
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("authenticated", isAuthenticated));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserResponseDTO> me(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(new UserResponseDTO(user.getId(), user.getName(), user.getEmail()));
     }
 
     @PostMapping("/login")
