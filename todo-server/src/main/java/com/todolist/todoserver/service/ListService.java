@@ -1,7 +1,7 @@
 package com.todolist.todoserver.service;
 
 import com.todolist.todoserver.dto.ListResponseDTO;
-import com.todolist.todoserver.entity.TaskList;
+import com.todolist.todoserver.entity.Tasklist;
 import com.todolist.todoserver.entity.User;
 import com.todolist.todoserver.infra.errors.ResourceNotFoundException;
 import com.todolist.todoserver.repository.TaskListRepository;
@@ -26,7 +26,7 @@ public class ListService {
         User user = usersRepository.findById(idUser)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
 
-        TaskList list = new TaskList();
+        Tasklist list = new Tasklist();
 
         list.setName(name);
         list.setDescription(description);
@@ -37,7 +37,7 @@ public class ListService {
 
     @Transactional
     public void update(Long idList, String name, String description) {
-        TaskList list = taskListRepository.findById(idList).orElseThrow(
+        Tasklist list = taskListRepository.findById(idList).orElseThrow(
                 () -> new ResourceNotFoundException("Lista não encontrada")
         );
 
@@ -46,7 +46,7 @@ public class ListService {
     }
 
     public void delete(Long idList) {
-        TaskList list = taskListRepository
+        Tasklist list = taskListRepository
                 .findById(idList)
                 .orElseThrow(() -> new ResourceNotFoundException("Lista não encontrada"));
 
@@ -54,9 +54,9 @@ public class ListService {
     }
 
     public ListResponseDTO getList(Long idList) {
-        TaskList list = taskListRepository.findById(idList).orElseThrow(() -> new ResourceNotFoundException("List"));
+        Tasklist list = taskListRepository.findById(idList).orElseThrow(() -> new ResourceNotFoundException("List"));
 
-        return new ListResponseDTO(list.getId(), list.getName(), list.getDescription());
+        return new ListResponseDTO(list);
     }
 
     public List<ListResponseDTO> getLists(Long idUser) {
@@ -65,7 +65,7 @@ public class ListService {
 
         return taskListRepository.findByUser(user)
                 .stream()
-                .map(ls -> new ListResponseDTO(ls.getId(), ls.getName(), ls.getDescription()))
+                .map(ListResponseDTO::new)
                 .toList();
     }
 }

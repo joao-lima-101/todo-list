@@ -3,6 +3,7 @@ package com.todolist.todoserver.controller;
 import com.todolist.todoserver.dto.ApiResponseDTO;
 import com.todolist.todoserver.dto.TaskRequestDTO;
 import com.todolist.todoserver.dto.TaskResponseDTO;
+import com.todolist.todoserver.mapper.TaskMapper;
 import com.todolist.todoserver.service.TaskService;
 import jakarta.validation.Valid;
 import org.jspecify.annotations.NonNull;
@@ -18,14 +19,16 @@ import java.util.Map;
 public class TaskController {
 
     private final TaskService taskService;
+    private final TaskMapper taskMapper;
 
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, TaskMapper taskMapper) {
         this.taskService = taskService;
+        this.taskMapper = taskMapper;
     }
 
     @PostMapping
     public ResponseEntity<ApiResponseDTO> create(@PathVariable Long idList, @NonNull @Valid @RequestBody TaskRequestDTO dto) {
-        taskService.create(idList, dto.name(), dto.description(), dto.priority(), dto.dueDate());
+        taskService.create(idList, taskMapper.toEntity(dto));
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponseDTO("Tarefa criada com sucesso"));
     }
 
@@ -41,7 +44,7 @@ public class TaskController {
             @PathVariable Long idList,
             @PathVariable Long idTask
     ) {
-        taskService.update(idList, idTask, dto.name(), dto.description(), dto.priority(), dto.dueDate());
+        taskService.update(idList, idTask, taskMapper.toEntity(dto));
         return ResponseEntity.ok(new ApiResponseDTO("Tarefa atualizada com sucesso"));
     }
 

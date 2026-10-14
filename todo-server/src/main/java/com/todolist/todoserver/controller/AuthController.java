@@ -49,7 +49,7 @@ public class AuthController {
 
     @GetMapping("/me")
     public ResponseEntity<UserResponseDTO> me(@AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(new UserResponseDTO(user.getId(), user.getName(), user.getEmail()));
+        return ResponseEntity.ok(userMapper.toDTO(user));
     }
 
     @PostMapping("/login")

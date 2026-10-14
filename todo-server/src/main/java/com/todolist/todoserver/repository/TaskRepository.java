@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Service
 public interface TaskRepository extends JpaRepository<Task, Long> {
-    Optional<Task> findByIdAndTaskList_Id(Long id, Long listId);
-    List<Task> findByTaskList_Id(Long listId);
+    Optional<Task> findByIdAndTasklist_Id(Long id, Long listId);
+    List<Task> findByTasklist_Id(Long listId);
 }

@@ -1,6 +1,7 @@
 package com.todolist.todoserver.mapper;
 
 import com.todolist.todoserver.dto.RegisterRequestDTO;
+import com.todolist.todoserver.dto.UserResponseDTO;
 import com.todolist.todoserver.entity.User;
 import org.springframework.stereotype.Component;
 
@@ -17,5 +18,13 @@ public class UserMapper {
         user.setPassword(dto.password());
 
         return user;
+    }
+
+    public UserResponseDTO toDTO(User user) {
+        return new UserResponseDTO(
+                user.getId(),
+                user.getName(),
+                user.getEmail()
+        );
     }
 }
