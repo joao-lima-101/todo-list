@@ -9,7 +9,7 @@ import { CustomSnackBarService } from '@/app/services/custom-snackbar.service';
 import { ListService } from '@/app/services/list.service';
 import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { DatePipe } from '@angular/common';
-import { TaskEdit, TaskResponse } from '@/@types/task.types';
+import { TaskEdit } from '@/@types/task.types';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTaskDialog } from './components/dialogs/create-task/create-task.component';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -83,7 +83,13 @@ export class TasksComponent {
     });
   }
 
-  toggleDone(idItem: number, itemState: boolean) {}
+  toggleDone(idTask: number) {
+    this.apiTask.toggleDone(Number(this.listId()), idTask).subscribe({
+      next: () => this.tasksResponse.reload(),
+      error: (httpError: HttpErrorResponse) =>
+        this.snackBar.error(httpError.error.message || 'Erro inesperado'),
+    });
+  }
 
   openEditDialog(task: Omit<TaskEdit, 'idList'>) {
     const dialogRef = this.dialog.open(EditTaskDialog, {

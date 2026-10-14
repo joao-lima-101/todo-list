@@ -14,9 +14,6 @@ export class UserService {
     return this.httpClient.post<{ message: string }>(
       `${environment.apiUrl}/user/change-password`,
       changePasswordData,
-      {
-        withCredentials: true,
-      },
     );
   }
 }

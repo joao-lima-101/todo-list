@@ -3,7 +3,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { authGuard } from './services/auth.guard';
+import { authGuard } from './services/auth/auth.guard';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },

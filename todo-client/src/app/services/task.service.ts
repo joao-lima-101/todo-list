@@ -12,9 +12,7 @@ export class TaskService {
   private readonly apiUrl = environment.apiUrl;
 
   getTasks(idList: number): Observable<TaskResponse[]> {
-    return this.httpClient.get<TaskResponse[]>(`${this.apiUrl}/list/${idList}/task`, {
-      withCredentials: true,
-    });
+    return this.httpClient.get<TaskResponse[]>(`${this.apiUrl}/list/${idList}/task`);
   }
 
   editTask(task: TaskEdit): Observable<{ message: string }> {
@@ -22,22 +20,23 @@ export class TaskService {
     return this.httpClient.patch<{ message: string }>(
       `${this.apiUrl}/list/${idList}/task/${id}`,
       newTask,
-      {
-        withCredentials: true,
-      },
+    );
+  }
+
+  toggleDone(idList: number, idTask: number): Observable<{ message: string }> {
+    return this.httpClient.patch<{ message: string }>(
+      `${this.apiUrl}/list/${idList}/task/${idTask}/done`,
+      null,
     );
   }
 
   registerTasks(idList: number, data: TaskRequest): Observable<{ message: string }> {
-    return this.httpClient.post<{ message: string }>(`${this.apiUrl}/list/${idList}/task`, data, {
-      withCredentials: true,
-    });
+    return this.httpClient.post<{ message: string }>(`${this.apiUrl}/list/${idList}/task`, data);
   }
 
   removeTask(idList: number, idTask: number): Observable<{ message: string }> {
     return this.httpClient.delete<{ message: string }>(
       `${this.apiUrl}/list/${idList}/task/${idTask}`,
-      { withCredentials: true },
     );
   }
 }

@@ -3,7 +3,7 @@ import { email, form, FormField, FormRoot, required } from '@angular/forms/signa
 import { Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { LoginRequest } from '@/@types/login.types';
-import { AuthService } from '@app/services/auth.service';
+import { AuthService } from '@/app/services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CustomSnackBarService } from '@/app/services/custom-snackbar.service';

@@ -89,14 +89,14 @@
             >
               <button
                 type="button"
-                class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 transition"
+                class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 transition cursor-pointer"
                 [class.border-green-500]="item.done"
                 [class.bg-green-500]="item.done"
                 [class.border-gray-300]="!item.done"
                 [attr.aria-label]="
                   item.done ? 'Marcar tarefa como pendente' : 'Marcar tarefa como concluída'
                 "
-                (click)="toggleDone(item.id, item.done)"
+                (click)="toggleDone(item.id)"
               >
                 @if (item.done) {
                   <mat-icon
