@@ -4,7 +4,7 @@ import com.todolist.todoserver.dto.ApiResponseDTO;
 import com.todolist.todoserver.dto.ListRequestDTO;
 import com.todolist.todoserver.dto.ListResponseDTO;
 import com.todolist.todoserver.entity.User;
-import com.todolist.todoserver.service.ListService;
+import com.todolist.todoserver.service.TasklistService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,16 +12,15 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/list")
-public class ListController {
+public class TasklistController {
 
-    private final ListService listService;
+    private final TasklistService tasklistService;
 
-    public ListController(ListService listService) {
-        this.listService = listService;
+    public TasklistController(TasklistService tasklistService) {
+        this.tasklistService = tasklistService;
     }
 
     @PostMapping
@@ -29,30 +28,34 @@ public class ListController {
             @Valid @RequestBody ListRequestDTO dto,
             @AuthenticationPrincipal User user
     ) {
-        listService.create(user.getId(), dto.name(), dto.description());
+        tasklistService.create(user, dto.name(), dto.description());
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponseDTO("Nova lista criada com sucesso!"));
     }
 
     @GetMapping("/{idList}")
-    public ResponseEntity<ListResponseDTO> getList(@PathVariable Long idList) {
-        ListResponseDTO dto = listService.getList(idList);
+    public ResponseEntity<ListResponseDTO> get(@PathVariable Long idList, @AuthenticationPrincipal User user) {
+        ListResponseDTO dto = tasklistService.get(idList, user);
         return ResponseEntity.ok(dto);
     }
 
     @PatchMapping("/{idList}")
-    public ResponseEntity<ApiResponseDTO> updateList(@PathVariable Long idList, @RequestBody ListRequestDTO dto) {
-        listService.update(idList, dto.name(), dto.description());
+    public ResponseEntity<ApiResponseDTO> update(
+            @PathVariable Long idList,
+            @RequestBody @Valid ListRequestDTO dto,
+            @AuthenticationPrincipal User user
+    ) {
+        tasklistService.update(idList, dto.name(), dto.description(), user);
         return ResponseEntity.ok(new ApiResponseDTO("Lista atualizada com sucesso!"));
     }
 
     @DeleteMapping("/{idList}")
-    public ResponseEntity<Void> delete(@PathVariable Long idList) {
-        listService.delete(idList);
+    public ResponseEntity<Void> delete(@PathVariable Long idList, @AuthenticationPrincipal User user) {
+        tasklistService.delete(idList, user);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
     public ResponseEntity<List<ListResponseDTO>> getLists( @AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(listService.getLists(user.getId()));
+        return ResponseEntity.ok(tasklistService.getAll(user));
     }
 }

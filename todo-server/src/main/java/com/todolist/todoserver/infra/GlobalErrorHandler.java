@@ -2,10 +2,7 @@ package com.todolist.todoserver.infra;
 
 import com.todolist.todoserver.config.RateLimitProperties;
 import com.todolist.todoserver.dto.ErrorResponseDTO;
-import com.todolist.todoserver.infra.errors.PasswordMissmatchException;
-import com.todolist.todoserver.infra.errors.RateLimitException;
-import com.todolist.todoserver.infra.errors.ResourceNotFoundException;
-import com.todolist.todoserver.infra.errors.UserAlreadyExistsException;
+import com.todolist.todoserver.infra.errors.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -111,6 +108,25 @@ public class GlobalErrorHandler {
             ResourceNotFoundException exception
     ) {
         HttpStatus status = HttpStatus.NOT_FOUND;
+
+        ErrorResponseDTO error = new ErrorResponseDTO(
+                LocalDateTime.now(),
+                status.value(),
+                status.getReasonPhrase(),
+                exception.getMessage(),
+                request.getRequestURI(),
+                null
+        );
+
+        return ResponseEntity.status(status).body(error);
+    }
+
+    @ExceptionHandler(UnauthorizedOperationException.class)
+    public ResponseEntity<ErrorResponseDTO> unauthorizedOperationHandler(
+            HttpServletRequest request,
+            UnauthorizedOperationException exception
+    ) {
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
 
         ErrorResponseDTO error = new ErrorResponseDTO(
                 LocalDateTime.now(),

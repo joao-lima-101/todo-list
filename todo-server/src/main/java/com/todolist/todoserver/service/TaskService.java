@@ -5,7 +5,7 @@ import com.todolist.todoserver.entity.Task;
 import com.todolist.todoserver.entity.Tasklist;
 import com.todolist.todoserver.infra.errors.ResourceNotFoundException;
 import com.todolist.todoserver.repository.TaskRepository;
-import com.todolist.todoserver.repository.TaskListRepository;
+import com.todolist.todoserver.repository.TasklistRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +14,10 @@ import java.util.List;
 @Service
 public class TaskService {
 
-    private final TaskListRepository taskListRepository;
+    private final TasklistRepository taskListRepository;
     private final TaskRepository taskRepository;
 
-    public TaskService(TaskListRepository taskListRepository, TaskRepository taskRepository) {
+    public TaskService(TasklistRepository taskListRepository, TaskRepository taskRepository) {
         this.taskListRepository = taskListRepository;
         this.taskRepository = taskRepository;
     }
