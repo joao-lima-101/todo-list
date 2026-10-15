@@ -1,5 +1,7 @@
 package com.todolist.todoserver.security;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.todolist.todoserver.config.RateLimitProperties;
 import com.todolist.todoserver.infra.errors.RateLimitException;
 import io.github.bucket4j.Bandwidth;
@@ -23,7 +25,11 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class RateLimitFilter extends OncePerRequestFilter {
     private final RateLimitProperties rateLimitProperties;
-    private final Map<String, Bucket> cache = new ConcurrentHashMap<>();
+    private final Cache<String, Bucket> cache = Caffeine
+            .newBuilder()
+            .maximumSize(10_000)
+            .expireAfterAccess(Duration.ofMinutes(10))
+            .build();
     private final AntPathMatcher matcher = new AntPathMatcher();
     @Qualifier("handlerExceptionResolver")
     private final HandlerExceptionResolver handlerExceptionResolver;
@@ -56,16 +62,13 @@ public class RateLimitFilter extends OncePerRequestFilter {
             return;
         }
 
-        String ip = request.getHeader("X-Forwarded-For");
-        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
+        String ip = request.getRemoteAddr();
 
         String cacheKey = ip + ":" + identifiedRoute;
 
         final RateLimitProperties.ConfigRoutes configFinal =  foundRoute;
 
-        Bucket bucket = cache.computeIfAbsent(cacheKey, k -> {
+        Bucket bucket = cache.get(cacheKey, k -> {
             Bandwidth limit = Bandwidth.builder()
                     .capacity(configFinal.getCapacity())
                     .refillIntervally(configFinal.getCapacity(), Duration.ofMinutes(configFinal.getTimeMinutes()))
