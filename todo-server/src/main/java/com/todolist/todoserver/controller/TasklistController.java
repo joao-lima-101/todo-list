@@ -55,7 +55,7 @@ public class TasklistController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ListResponseDTO>> getLists( @AuthenticationPrincipal User user) {
+    public ResponseEntity<List<ListResponseDTO>> getAll( @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(tasklistService.getAll(user));
     }
 }
