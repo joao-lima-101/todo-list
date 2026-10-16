@@ -31,11 +31,11 @@ public class Tasklist {
 
     public void addTask(Task task) {
         this.tasks.add(task);
-        task.setTaskList(this);
+        task.setTasklist(this);
     }
 
     public void removeTask(Task task) {
         this.tasks.remove(task);
-        task.setTaskList(null);
+        task.setTasklist(null);
     }
 }

@@ -44,7 +44,7 @@ public class TaskService {
                 () -> new ResourceNotFoundException("Tarefa não encontrada")
         );
 
-        if (!task.getTaskList().getUser().getId().equals(user.getId())) {
+        if (!task.getTasklist().getUser().getId().equals(user.getId())) {
             throw new UnauthorizedOperationException("Acesso negado");
         }
 
@@ -57,7 +57,7 @@ public class TaskService {
                 () -> new ResourceNotFoundException("Tarefa não encontrada")
         );
 
-        validateOwnership(user, newTask.getTaskList());
+        validateOwnership(user, newTask.getTasklist());
 
         newTask.setName(task.getName());
         newTask.setDescription(task.getDescription());
