@@ -29,8 +29,11 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponseDTO> create(@PathVariable Long idList, @Valid @RequestBody TaskRequestDTO dto) {
-        taskService.create(idList, taskMapper.toEntity(dto));
+    public ResponseEntity<ApiResponseDTO> create(
+            @AuthenticationPrincipal User user,
+            @PathVariable Long idList,
+            @Valid @RequestBody TaskRequestDTO dto) {
+        taskService.create(idList, taskMapper.toEntity(dto), user);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponseDTO("Tarefa criada com sucesso"));
     }
 

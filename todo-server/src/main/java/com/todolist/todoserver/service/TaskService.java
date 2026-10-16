@@ -26,10 +26,14 @@ public class TaskService {
     }
 
     @Transactional
-    public void create(Long idList, Task task) {
+    public void create(Long idList, Task task, User user) {
         Tasklist list = tasklistRepository
                 .findById(idList)
                 .orElseThrow(() -> new ResourceNotFoundException("Lista não encontrada"));
+
+        if (!user.getId().equals(list.getUser().getId())) {
+            throw new UnauthorizedOperationException("Acesso negado");
+        }
 
         list.addTask(task);
     }

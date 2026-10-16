@@ -20,13 +20,12 @@ public class Task {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private String description;
 
     @Enumerated(EnumType.STRING)
     private TaskPriority priority = TaskPriority.MEDIO;
 
-    @Column(name = "due_date", nullable = false)
+    @Column(name = "due_date")
     private LocalDate dueDate;
 
     @Column(nullable = false)
