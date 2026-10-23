@@ -62,72 +62,9 @@
           }
         </div>
       } @else {
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
           @for (list of filteredLists(); track list.id) {
-            <div
-              class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md"
-            >
-              <div class="flex items-start justify-between">
-                <div class="min-w-0 flex-1 group">
-                  <div
-                    class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100"
-                  >
-                    <mat-icon class="text-blue-600"> format_list_bulleted </mat-icon>
-                  </div>
-
-                  <h2
-                    class="truncate text-lg font-semibold text-gray-800 group-hover:text-blue-600"
-                  >
-                    {{ list.name }}
-                  </h2>
-
-                  @if (list.description) {
-                    <p class="mt-2 line-clamp-2 text-sm leading-5 text-gray-500">
-                      {{ list.description }}
-                    </p>
-                  } @else {
-                    <p class="mt-2 text-sm italic text-gray-400">Sem descrição</p>
-                  }
-
-                  <p class="mt-2 text-xs text-gray-400">Lista #{{ list.id }}</p>
-                </div>
-
-                <button
-                  type="button"
-                  class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-gray-400 opacity-100 transition hover:bg-gray-100 hover:text-gray-600"
-                  (click)="$event.stopPropagation()"
-                  [matMenuTriggerFor]="listMenu"
-                  aria-label="Ações da tarefa"
-                >
-                  <mat-icon> more_vert </mat-icon>
-                </button>
-
-                <mat-menu #listMenu="matMenu" class="dropdown-menu">
-                  <button mat-menu-item (click)="openEditDialog(list)">
-                    <mat-icon fontIcon="edit"></mat-icon>
-                    <span>Editar</span>
-                  </button>
-
-                  <button mat-menu-item (click)="openConfirmDialog(list.id)" class="danger">
-                    <mat-icon fontIcon="delete"></mat-icon>
-                    <span>Excluir</span>
-                  </button>
-                </mat-menu>
-              </div>
-
-              <div
-                class="mt-5 flex items-center justify-between border-t border-gray-100 p-2 rounded-lg cursor-pointer hover:bg-gray-100 group"
-                (click)="navigateList(list.id)"
-              >
-                <span class="text-xs text-gray-400"> Ver tarefas </span>
-
-                <mat-icon
-                  class="text-gray-400 transition group-hover:translate-x-1 group-hover:text-blue-500"
-                >
-                  arrow_forward
-                </mat-icon>
-              </div>
-            </div>
+            <list-card [list]="list" (refreshData)="refreshData()"></list-card>
           }
         </div>
       }

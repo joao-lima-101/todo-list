@@ -11,4 +11,7 @@ export interface ListEdit extends BaseList {
 
 export interface ListResponse extends BaseList {
   id: number;
+  totalTasks: number;
+  completedTasks: number;
+  completionPercentage: number;
 }

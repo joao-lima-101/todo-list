@@ -42,7 +42,24 @@
   }
 }
 
-/* DROPDOWN MENU */
+.progress-primary {
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-height: 6px,
+      active-indicator-color: orange,
+      track-shape: 8px,
+    )
+  );
+
+  &.done {
+    @include mat.progress-bar-overrides(
+      (
+        active-indicator-color: green,
+      )
+    );
+  }
+}
+
 .dropdown-menu {
   @include mat.menu-overrides(
     (
