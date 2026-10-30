@@ -1,4 +1,4 @@
-import { ChangePasswordData } from '@/@types/user.types';
+import { ChangePasswordData } from '@/@types/user.model';
 import { environment } from '@/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';

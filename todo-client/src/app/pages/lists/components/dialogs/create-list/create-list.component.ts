@@ -9,7 +9,7 @@ import {
 } from '@angular/material/dialog';
 import { ListService } from '@/app/services/list.service';
 import { CustomSnackBarService } from '@/app/services/custom-snackbar.service';
-import { ListRequest } from '@/@types/list.types';
+import { ListRequest } from '@/@types/list.model';
 
 @Component({
   templateUrl: 'create-list.component.html',

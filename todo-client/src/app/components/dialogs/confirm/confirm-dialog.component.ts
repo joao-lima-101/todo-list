@@ -1,4 +1,4 @@
-import { ConfirmDialogData } from '@/@types/confirm.types';
+import { ConfirmDialogData } from '@/@types/confirm.model';
 import { Component, inject } from '@angular/core';
 import {
   MatDialogContent,

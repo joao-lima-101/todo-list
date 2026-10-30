@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { LoginRequest } from '@/@types/login.types';
-import { RegisterRequest } from '@/@types/register.types';
+import { LoginRequest } from '@/@types/login.model';
+import { RegisterRequest } from '@/@types/register.model';
 import { environment } from '@/environments/environment';
 import { SKIP_CREDENTIALS } from './auth.context';
 

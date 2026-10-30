@@ -1,4 +1,4 @@
-import { ListResponse } from '@/@types/list.types';
+import { ListResponse } from '@/@types/list.model';
 import { CustomSnackBarService } from '@/app/services/custom-snackbar.service';
 import { DecimalPipe } from '@angular/common';
 import { Component, inject, input, output } from '@angular/core';
@@ -7,12 +7,12 @@ import { MatIcon } from '@angular/material/icon';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ConfirmDialog } from '@/app/components/dialogs/confirm-dialog.component';
+import { ConfirmDialog } from '@/app/components/dialogs/confirm/confirm-dialog.component';
 import { ListService } from '@/app/services/list.service';
 import { Router } from '@angular/router';
 import { EditListDialog } from '../../dialogs/edit-list/edit-list.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ListEdit } from '@/@types/list.types';
+import { ListEdit } from '@/@types/list.model';
 
 @Component({
   selector: 'list-card',

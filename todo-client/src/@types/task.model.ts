@@ -1,7 +1,7 @@
 interface TaskBase {
   name: string;
   description: string;
-  dueDate: Date | null;
+  dueDate: string | null;
   done: boolean;
   priority: 'ALTO' | 'MEDIO' | 'BAIXO';
 }

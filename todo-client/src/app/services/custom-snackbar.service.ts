@@ -1,4 +1,4 @@
-import { SnackBarData } from '@/@types/snack.types';
+import { SnackBarData } from '@/@types/snack.model';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';

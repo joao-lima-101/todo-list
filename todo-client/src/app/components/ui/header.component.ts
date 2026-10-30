@@ -1,16 +1,16 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '@/app/services/auth/auth.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-import { ChangePasswordDialog } from '@app/pages/dashboard/components/dialogs/change-password/change-password.component';
+import { ChangePasswordDialog } from '@/app/components/dialogs/change-password/change-password.component';
 
 @Component({
   selector: 'header-component',
   templateUrl: 'header.component.html',
-  imports: [MatIcon, MatMenuModule, MatButtonModule],
+  imports: [MatIcon, MatMenuModule, MatButtonModule, RouterLink],
 })
 export class HeaderComponent {
   private api = inject(AuthService);

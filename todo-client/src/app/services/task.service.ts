@@ -1,4 +1,4 @@
-import { TaskEdit, TaskRequest, TaskResponse } from '@/@types/task.types';
+import { TaskEdit, TaskRequest, TaskResponse } from '@/@types/task.model';
 import { environment } from '@/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';

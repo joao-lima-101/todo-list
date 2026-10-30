@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ListResponse, ListRequest, ListEdit } from '@/@types/list.types';
+import { ListResponse, ListRequest, ListEdit } from '@/@types/list.model';
 import { environment } from '@/environments/environment';
 
 @Injectable({

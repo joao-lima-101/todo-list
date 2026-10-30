@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { ListEdit, ListRequest } from '@/@types/list.types';
+import { ListEdit, ListRequest } from '@/@types/list.model';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { ListService } from '@/app/services/list.service';
 import { CustomSnackBarService } from '@/app/services/custom-snackbar.service';

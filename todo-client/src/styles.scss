@@ -46,7 +46,7 @@
   @include mat.progress-bar-overrides(
     (
       active-indicator-height: 6px,
-      active-indicator-color: orange,
+      active-indicator-color: rgb(37, 99, 235),
       track-shape: 8px,
     )
   );

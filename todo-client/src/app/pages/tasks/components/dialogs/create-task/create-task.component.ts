@@ -1,4 +1,4 @@
-import { TaskRequest } from '@/@types/task.types';
+import { TaskRequest } from '@/@types/task.model';
 import { CustomSnackBarService } from '@/app/services/custom-snackbar.service';
 import { TaskService } from '@/app/services/task.service';
 import { Component, inject, input, signal } from '@angular/core';

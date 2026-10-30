@@ -7,10 +7,10 @@
         <button
           type="button"
           class="mb-4 flex items-center justify-center gap-1 text-sm text-gray-500 transition hover:text-gray-800"
-          (click)="backToHome()"
+          [routerLink]="['/lists']"
         >
-          <mat-icon fontIcon="arrow_back"></mat-icon>
-          Home
+          <mat-icon>arrow_back</mat-icon>
+          Voltar para listas
         </button>
 
         <div class="flex items-center justify-between gap-4">
@@ -27,7 +27,7 @@
             class="flex shrink-0 items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-blue-700 active:scale-95"
             (click)="openCreateDialog()"
           >
-            <mat-icon fontIcon="add"></mat-icon>
+            <mat-icon>add</mat-icon>
             Nova tarefa
           </button>
         </div>
@@ -136,12 +136,15 @@
                     {{ item.priority }}
                   </span>
 
-                  <span class="flex items-center gap-1 text-xs text-gray-400">
+                  <span
+                    class="flex items-center gap-1 text-xs"
+                    [class.text-red-600]="item.dueDate && item.dueDate.getTime() < today.getTime()"
+                    [class.text-gray-800]="
+                      !item.dueDate || item.dueDate.getTime() >= today.getTime()
+                    "
+                  >
                     @if (item.dueDate) {
-                      <mat-icon
-                        fontIcon="event"
-                        style="width: 15px; height: 15px; font-size: 15px"
-                      ></mat-icon>
+                      <mat-icon class="w-3.75! h-3.75! text-[15px]!">event</mat-icon>
 
                       {{ item.dueDate | date: 'dd/MM/yyyy' }}
                     } @else {
@@ -162,7 +165,15 @@
               </button>
 
               <mat-menu #itemMenu="matMenu" class="dropdown-menu">
-                <button mat-menu-item (click)="openEditDialog(item)">
+                <button
+                  mat-menu-item
+                  (click)="
+                    openEditDialog({
+                      ...item,
+                      dueDate: item.dueDate ? item.dueDate.toISOString().slice(0, 10) : null,
+                    })
+                  "
+                >
                   <mat-icon fontIcon="edit"></mat-icon>
                   <span>Editar</span>
                 </button>

@@ -1,31 +1,31 @@
 import { Component, signal, inject, computed, input } from '@angular/core';
 import { HeaderComponent } from '@app/components/ui/header.component';
 import { MatIcon } from '@angular/material/icon';
-import { Router } from '@angular/router';
 import { TaskService } from '@/app/services/task.service';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { catchError, of } from 'rxjs';
+import { catchError, map, of } from 'rxjs';
 import { CustomSnackBarService } from '@/app/services/custom-snackbar.service';
 import { ListService } from '@/app/services/list.service';
 import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { DatePipe } from '@angular/common';
-import { TaskEdit } from '@/@types/task.types';
+import { TaskEdit } from '@/@types/task.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTaskDialog } from './components/dialogs/create-task/create-task.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ConfirmDialog } from '@/app/components/dialogs/confirm-dialog.component';
+import { ConfirmDialog } from '@/app/components/dialogs/confirm/confirm-dialog.component';
 import { EditTaskDialog } from './components/dialogs/edit-task/edit-task.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   templateUrl: 'tasks.component.html',
-  imports: [HeaderComponent, MatIcon, MatMenu, MatMenuModule, DatePipe],
+  imports: [HeaderComponent, MatIcon, MatMenu, MatMenuModule, DatePipe, RouterLink],
 })
 export class TasksComponent {
   private apiTask = inject(TaskService);
   private apiList = inject(ListService);
   private snackBar = inject(CustomSnackBarService);
-  private router = inject(Router);
   readonly dialog = inject(MatDialog);
+  readonly today = new Date();
   listId = input.required<string>();
 
   searchTerm = signal('');
@@ -45,6 +45,12 @@ export class TasksComponent {
     params: () => Number(this.listId()),
     stream: () => {
       return this.apiTask.getTasks(Number(this.listId())).pipe(
+        map((tasks) =>
+          tasks.map((tsk) => ({
+            ...tsk,
+            dueDate: tsk.dueDate ? new Date(`${tsk.dueDate}T00:00:00`) : null,
+          })),
+        ),
         catchError((httpError) => {
           this.snackBar.error(httpError.error.message || 'Erro inesperado');
           return of([]);
@@ -63,10 +69,6 @@ export class TasksComponent {
         }),
       ),
   });
-
-  backToHome() {
-    this.router.navigate(['/']);
-  }
 
   openCreateDialog() {
     const dialogRef = this.dialog.open(CreateTaskDialog, {

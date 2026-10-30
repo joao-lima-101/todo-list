@@ -11,7 +11,7 @@ import {
 } from '@angular/forms/signals';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { RegisterRequest } from '@/@types/register.types';
+import { RegisterRequest } from '@/@types/register.model';
 import { AuthService } from '@/app/services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';

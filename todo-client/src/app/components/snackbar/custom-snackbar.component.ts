@@ -6,7 +6,7 @@ import {
 } from '@angular/material/snack-bar';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 import { MatIcon } from '@angular/material/icon';
-import { SnackBarData } from '@/@types/snack.types';
+import { SnackBarData } from '@/@types/snack.model';
 
 @Component({
   selector: 'custom-snackbar',

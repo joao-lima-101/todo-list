@@ -12,7 +12,7 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { TaskService } from '@/app/services/task.service';
 import { CustomSnackBarService } from '@/app/services/custom-snackbar.service';
-import { TaskEdit } from '@/@types/task.types';
+import { TaskEdit } from '@/@types/task.model';
 
 @Component({
   templateUrl: 'edit-task.component.html',

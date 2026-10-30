@@ -2,7 +2,7 @@ import { Component, computed, signal, inject } from '@angular/core';
 import { email, form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { LoginRequest } from '@/@types/login.types';
+import { LoginRequest } from '@/@types/login.model';
 import { AuthService } from '@/app/services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
