@@ -18,6 +18,8 @@ export class LoginComponent {
   private router = inject(Router);
   private snackBar = inject(CustomSnackBarService);
 
+  seePassword = signal(false);
+
   isLoading = signal(false);
 
   hasEmailError = computed(() => {

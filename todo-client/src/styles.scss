@@ -14,7 +14,7 @@
 }
 
 .input-primary {
-  @apply bg-white text-gray-800 w-full rounded-xl p-1 outline-gray-300 disabled:cursor-not-allowed disabled:bg-gray-100;
+  @apply bg-white text-gray-800 w-full rounded-xl p-1.5 outline-gray-300 disabled:cursor-not-allowed disabled:bg-gray-100;
 }
 
 .input-secondary {
