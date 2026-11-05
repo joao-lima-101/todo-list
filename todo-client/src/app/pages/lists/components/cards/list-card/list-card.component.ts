@@ -8,7 +8,7 @@ import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ConfirmDialog } from '@/app/components/dialogs/confirm/confirm-dialog.component';
-import { ListService } from '@/app/services/list.service';
+import { ListService } from '@/app/services/api/list.service';
 import { Router } from '@angular/router';
 import { EditListDialog } from '../../dialogs/edit-list/edit-list.component';
 import { HttpErrorResponse } from '@angular/common/http';

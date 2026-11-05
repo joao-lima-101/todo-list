@@ -1,6 +1,6 @@
 import { TaskRequest } from '@/@types/task.model';
 import { CustomSnackBarService } from '@/app/services/custom-snackbar.service';
-import { TaskService } from '@/app/services/task.service';
+import { TaskService } from '@/app/services/api/task.service';
 import { Component, inject, input, signal } from '@angular/core';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import {

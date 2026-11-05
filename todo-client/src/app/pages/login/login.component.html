@@ -32,19 +32,24 @@
 
         <div class="flex flex-col gap-1">
           <label for="password">Senha</label>
-          <div class="relative flex flex-row justify-end items-center">
+          <div class="relative flex flex-row items-center">
             <input
               [type]="seePassword() ? 'text' : 'password'"
               [formField]="loginForm.password"
               id="password"
-              class="input-primary"
+              class="input-primary pr-10!"
               [class]="hasPasswordError() ? 'input-error-primary' : 'border-transparent'"
             />
-            <mat-icon
-              class="text-gray-500! right-2 absolute"
+            <button
+              type="button"
+              class="absolute right-3 flex items-center text-gray-500"
               (click)="seePassword.update((value) => !value)"
-              >{{ seePassword() ? 'visibility_off' : 'visibility' }}</mat-icon
+              [attr.aria-label]="seePassword() ? 'Ocultar senha' : 'Mostrar senha'"
             >
+              <mat-icon>
+                {{ seePassword() ? 'visibility_off' : 'visibility' }}
+              </mat-icon>
+            </button>
           </div>
           @if (hasPasswordError()) {
             <div class="text-xs text-red-500">
@@ -53,15 +58,14 @@
           }
         </div>
         <div class="flex justify-between items-center mt-3">
-          <p>Esqueceu a senha?</p>
-
-          <button type="submit" class="button-primary" [disabled]="isLoading()">
+          <button type="submit" class="button-primary">
             Acessar
-            @if (isLoading()) {
-              <mat-spinner diameter="20"></mat-spinner>
-            } @else {
-              <mat-icon style="width: 20px; height: 20px; font-size: 20px">arrow_forward</mat-icon>
-            }
+            <mat-icon
+              class="w-5! h-5! text-[20px]!"
+              style="width: 20px; height: 20px; font-size: 20px"
+            >
+              arrow_forward
+            </mat-icon>
           </button>
         </div>
       </div>

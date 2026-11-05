@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { AuthService } from '@/app/services/auth/auth.service';
+import { AuthService } from '@/app/services/api/auth.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { ChangePasswordDialog } from '@/app/components/dialogs/change-password/change-password.component';

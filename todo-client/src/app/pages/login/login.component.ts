@@ -3,7 +3,7 @@ import { email, form, FormField, FormRoot, required } from '@angular/forms/signa
 import { Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { LoginRequest } from '@/@types/login.model';
-import { AuthService } from '@/app/services/auth/auth.service';
+import { AuthService } from '@/app/services/api/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CustomSnackBarService } from '@/app/services/custom-snackbar.service';
@@ -19,8 +19,6 @@ export class LoginComponent {
   private snackBar = inject(CustomSnackBarService);
 
   seePassword = signal(false);
-
-  isLoading = signal(false);
 
   hasEmailError = computed(() => {
     const email = this.loginForm.email();
@@ -47,18 +45,13 @@ export class LoginComponent {
     {
       submission: {
         action: async (field) => {
-          this.isLoading.set(true);
-
           this.api.login(field().value()).subscribe({
             next: () => {
               this.snackBar.success('Login realizado com sucesso', 'Bem vindo!');
 
-              this.isLoading.set(false);
               this.router.navigate(['']);
             },
             error: (httpError: HttpErrorResponse) => {
-              this.isLoading.set(false);
-
               this.snackBar.error(httpError.error.message || 'Erro inesperado');
             },
           });

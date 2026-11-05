@@ -1,0 +1,11 @@
+@if (loadingService.loading()) {
+  <div
+    class="fixed inset-0 z-9999 flex flex-col items-center justify-center gap-4 bg-black/30 backdrop-blur-[2px]"
+  >
+    <div class="rounded-xl bg-white p-6 shadow-xl">
+      <mat-spinner class="progress-spinner-primary" diameter="45" />
+    </div>
+
+    <span class="text-sm font-medium text-white drop-shadow"> Aguarde, carregando... </span>
+  </div>
+}

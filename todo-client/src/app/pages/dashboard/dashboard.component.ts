@@ -5,7 +5,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, finalize, of } from 'rxjs';
 
 import { MatIconModule } from '@angular/material/icon';
-import { DashboardService } from '@/app/services/dashboard.service';
+import { DashboardService } from '@/app/services/api/dashboard.service';
 import { HeaderComponent } from '@/app/components/ui/header.component';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatTooltip } from '@angular/material/tooltip';

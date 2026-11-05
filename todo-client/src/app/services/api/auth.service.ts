@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { LoginRequest } from '@/@types/login.model';
 import { RegisterRequest } from '@/@types/register.model';
 import { environment } from '@/environments/environment';
-import { SKIP_CREDENTIALS } from './auth.context';
+import { SKIP_CREDENTIALS, SKIP_LOADING } from '../../interceptors/http.tokens';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +27,8 @@ export class AuthService {
   }
 
   isLoggedIn(): Observable<{ authenticated: boolean }> {
-    return this.httpClient.get<{ authenticated: boolean }>(`${environment.apiUrl}/auth/status`);
+    return this.httpClient.get<{ authenticated: boolean }>(`${environment.apiUrl}/auth/status`, {
+      context: new HttpContext().set(SKIP_LOADING, true),
+    });
   }
 }

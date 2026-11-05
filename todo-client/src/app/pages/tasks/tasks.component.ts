@@ -1,11 +1,11 @@
 import { Component, signal, inject, computed, input } from '@angular/core';
 import { HeaderComponent } from '@app/components/ui/header.component';
 import { MatIcon } from '@angular/material/icon';
-import { TaskService } from '@/app/services/task.service';
+import { TaskService } from '@/app/services/api/task.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { catchError, map, of } from 'rxjs';
 import { CustomSnackBarService } from '@/app/services/custom-snackbar.service';
-import { ListService } from '@/app/services/list.service';
+import { ListService } from '@/app/services/api/list.service';
 import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { DatePipe } from '@angular/common';
 import { TaskEdit } from '@/@types/task.model';

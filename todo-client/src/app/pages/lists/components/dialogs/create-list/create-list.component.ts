@@ -7,7 +7,7 @@ import {
   MatDialogClose,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { ListService } from '@/app/services/list.service';
+import { ListService } from '@/app/services/api/list.service';
 import { CustomSnackBarService } from '@/app/services/custom-snackbar.service';
 import { ListRequest } from '@/@types/list.model';
 

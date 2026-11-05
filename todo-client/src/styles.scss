@@ -42,6 +42,14 @@
   }
 }
 
+.progress-spinner-primary {
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: black,
+    )
+  );
+}
+
 .progress-primary {
   @include mat.progress-bar-overrides(
     (

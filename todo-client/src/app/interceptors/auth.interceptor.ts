@@ -1,5 +1,5 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { SKIP_CREDENTIALS } from './auth.context';
+import { SKIP_CREDENTIALS } from './http.tokens';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   if (req.context.get(SKIP_CREDENTIALS)) {

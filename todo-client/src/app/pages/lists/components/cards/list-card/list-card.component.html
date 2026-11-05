@@ -3,10 +3,16 @@
 >
   <header class="flex items-start gap-3">
     <div
-      class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition-colors group-hover:bg-blue-100"
+      class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors group-hover:bg-blue-100"
+      [class.text-blue-600]="list().completionPercentage < 100"
+      [class.bg-blue-50]="list().completionPercentage < 100"
+      [class.text-green-600]="list().completionPercentage === 100"
+      [class.bg-green-50]="list().completionPercentage === 100"
       aria-hidden="true"
     >
-      <mat-icon>format_list_bulleted</mat-icon>
+      <mat-icon>{{
+        list().completionPercentage === 100 ? 'check' : 'format_list_bulleted'
+      }}</mat-icon>
     </div>
 
     <div class="min-w-0 flex-1">

@@ -1,6 +1,6 @@
 import { ChangePasswordData } from '@/@types/user.model';
 import { CustomSnackBarService } from '@/app/services/custom-snackbar.service';
-import { UserService } from '@/app/services/user.service';
+import { UserService } from '@/app/services/api/user.service';
 import { Component, computed, inject, signal } from '@angular/core';
 import {
   disabled,
