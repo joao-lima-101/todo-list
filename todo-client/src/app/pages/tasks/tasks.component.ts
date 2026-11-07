@@ -1,5 +1,5 @@
 import { Component, signal, inject, computed, input } from '@angular/core';
-import { HeaderComponent } from '@app/components/ui/header.component';
+import { HeaderComponent } from '@/app/components/header/header.component';
 import { MatIcon } from '@angular/material/icon';
 import { TaskService } from '@/app/services/api/task.service';
 import { rxResource } from '@angular/core/rxjs-interop';
@@ -43,8 +43,8 @@ export class TasksComponent {
 
   tasksResponse = rxResource({
     params: () => Number(this.listId()),
-    stream: () => {
-      return this.apiTask.getTasks(Number(this.listId())).pipe(
+    stream: () =>
+      this.apiTask.getTasks(Number(this.listId())).pipe(
         map((tasks) =>
           tasks.map((tsk) => ({
             ...tsk,
@@ -55,8 +55,7 @@ export class TasksComponent {
           this.snackBar.error(httpError.error.message || 'Erro inesperado');
           return of([]);
         }),
-      );
-    },
+      ),
   });
 
   listResponse = rxResource({

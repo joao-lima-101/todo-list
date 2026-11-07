@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,6 +16,8 @@ export class HeaderComponent {
   private api = inject(AuthService);
   private router = inject(Router);
   readonly dialog = inject(MatDialog);
+
+  userData = this.api.userResource.value();
 
   logout() {
     this.api.logout().subscribe({

@@ -1,5 +1,5 @@
 import { Component, inject, signal, computed } from '@angular/core';
-import { HeaderComponent } from '../../components/ui/header.component';
+import { HeaderComponent } from '../../components/header/header.component';
 import { ListService } from '@/app/services/api/list.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { CustomSnackBarService } from '@/app/services/custom-snackbar.service';
